@@ -1,4 +1,4 @@
-package com.example.second.Configuration;
+package com.example.Prompting.Configuration;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.google.genai.GoogleGenAiChatModel;
@@ -13,12 +13,6 @@ public class ChatClientConfig {
     public ChatClient geminiChatClient(
             GoogleGenAiChatModel chatModel
     ) {
-        return ChatClient.builder(chatModel)
-                .build();
-    }
-
-    @Bean(name = "ollamaChatClient")
-    public ChatClient ollamaChatClient( OllamaChatModel chatModel) {
         return ChatClient.builder(chatModel)
                 .build();
     }
