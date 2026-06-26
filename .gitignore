@@ -1,0 +1,63 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Java and Maven
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+target/
+**/target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Maven wrapper
+.mvn/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Application configuration
+application-*.properties
+application-*.yml
+
+# Node/npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Logs
+logs/
+*.log
+
+# Generated files
+generated-sources/
