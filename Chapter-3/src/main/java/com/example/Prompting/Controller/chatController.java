@@ -34,7 +34,24 @@ public class chatController {
     @GetMapping("/gemini-RM")
     public ResponseEntity<?> getResponseWithMetadata(@RequestParam(value = "q") String question) {
         return  ResponseEntity.ok(chatService.AiResponse(question));
-    }}
+    }
+
+    @GetMapping("/gemini-Dynamic")
+    public ResponseEntity<?> DynamicResponse(@RequestParam(value = "q") String question) {
+        return  ResponseEntity.ok(chatService.dynamicQuery(question));
+    }
+
+    // dynamic query with prompt template
+    @GetMapping("/gemini-PT")
+    public ResponseEntity<?> promptTemplate() {
+        return  ResponseEntity.ok(chatService.PromptTemplate());
+    }
+}
+
+
+
+
+
 
 
 

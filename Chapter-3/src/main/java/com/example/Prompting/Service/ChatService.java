@@ -6,9 +6,13 @@ import com.example.Prompting.Entities.Response;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.metadata.ChatResponseMetadata;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class ChatService {
@@ -37,7 +41,8 @@ public class ChatService {
     }
 
     public AiResponse AiResponse(String question) {
-        Prompt prompt = new Prompt(question);
+        Prompt prompt = new Prompt(question, ChatOptions.builder().maxTokens(1000).temperature(0.5).build());
+
 
         ChatResponse response = geminiChatClient.prompt(prompt)
                 .system("""
@@ -58,5 +63,31 @@ public class ChatService {
         System.out.println("==============================");
         return aiResponse;
     }
+
+// Dynamic query method to handle any type of query by using user
+// this is help to enhance and match the desired output of the user.
+//
+    public String dynamicQuery(String query){
+        String DynamicQuery="You are a java expert. you have to write programs. Now answer this question: {query}";
+        return geminiChatClient.prompt()
+                .user(u-> u.text(DynamicQuery).param("query", query))
+                .call().content();
+    }
+
+    // Dynamic prompting by using PromptTemplate to handle any type of query by using user
+
+    public String PromptTemplate(){
+        PromptTemplate promptTemplate= PromptTemplate.builder()
+                .template("what is {name}, and tell me the example of {example}")
+                .build();
+      String  render= promptTemplate.render(Map.of("name", "Java", "example", "abstact class"));
+      Prompt prompt= new Prompt( render, ChatOptions.builder().maxTokens(2000).temperature(0.5).build());
+        System.out.println("========== PromptTemplate ==========");
+        System.out.println(geminiChatClient.prompt(prompt).call().content());
+        System.out.println("==============================");
+            return geminiChatClient.prompt(prompt)
+                .call().content();
+    }
+
 
 }
